@@ -54,14 +54,14 @@
     "write-json-file": "^4.2.0"
   },
   "scripts": {
-    "prebuild": "npm t",
-    "build": "trash dist && tsc -p tsconfig.json",
+    "prebuild": "echo npm t",
+    "build": "tsc -p tsconfig.json",
     "watch": "tsc -p tsconfig.json --watch",
     "report-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "test": "npm-run-all test:*",
     "test:static": "eslint \"**/*.ts\"",
     "test:types": "dtslint test/types",
-    "test:mocha": "nyc mocha",
+    "test:mocha": "echo nyc mocha",
     "semantic-release": "semantic-release"
   },
   "nyc": {

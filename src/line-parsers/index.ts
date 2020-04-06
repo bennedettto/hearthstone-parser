@@ -6,11 +6,13 @@ import {TurnLineParser} from './turn';
 import {ZoneChangeLineParser} from './zone-change';
 import {TagChangeLineParser} from './tag-change';
 import {GameState} from '../GameState';
+import {CombatStartsParser} from './combat-starts';
 import {MulliganStartParser} from './mulligan-start';
 import {ChoiceIdParser} from './choice-id';
 import {DiscoveryEndParser} from './discovery-end';
 import {DiscoveryStartParser} from './discovery-start';
 import {MullinganResultParser} from './mulligan-result';
+import {TagUpdateParser} from './tag-update';
 
 export const lineParsers = [
 	new GameOverLineParser(),
@@ -18,13 +20,15 @@ export const lineParsers = [
 	new NewPlayerLineParser(),
 	new TurnLineParser(),
 	new ZoneChangeLineParser(),
+	new CombatStartsParser(),
 	new TagChangeLineParser(),
 	new GameTagChangeLineParser(),
 	new MulliganStartParser(),
 	new ChoiceIdParser(),
 	new DiscoveryStartParser(),
 	new DiscoveryEndParser(),
-	new MullinganResultParser()
+	new MullinganResultParser(),
+	new TagUpdateParser()
 ];
 
 export interface Events {
@@ -41,4 +45,6 @@ export interface Events {
 	'discovery-start': void;
 	'discovery-end': void;
 	'mulligan-result': void;
+	'minion-update': void;
+	'combat-starts': void;
 }

@@ -30,6 +30,8 @@ export class TagChangeLineParser extends AbstractLineParser {
 	lineMatched(parts: string[], gameState: GameState): void {
 		const data = formatParts(parts);
 
+		gameState.tagChangeById(data.entityId, data.tag, parts[6]);
+
 		if (data.tag !== 'QUEST_PROGRESS') {
 			return;
 		}
