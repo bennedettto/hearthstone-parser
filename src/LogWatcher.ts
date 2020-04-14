@@ -29,7 +29,7 @@ const defaultOptions: Options = {
 const log = debug('hlp');
 
 // Determine the default location of the config and log files.
-if (/^win/.test(os.platform())) {
+if (os.platform().startsWith('win')) {
 	log('Windows platform detected.');
 
 	if (process.env.UserProfile) {

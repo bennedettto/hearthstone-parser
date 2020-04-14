@@ -15,3 +15,6 @@ npm-debug.log
 /desktop.ini
 
 /dist
+
+*.js
+*.map
