@@ -81,6 +81,9 @@ export class GameState {
 
   addPlayer(player: Player): Player {
     this.players.push(player);
+    if (!player.discovery) {
+    	player.discovery = {enabled: false, id: null};
+    }
     return player;
   }
 
