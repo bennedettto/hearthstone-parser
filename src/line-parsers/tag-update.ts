@@ -5,15 +5,15 @@ import {GameState} from '../GameState';
 export class TagUpdateParser extends AbstractLineParser {
   regex = /./;
 
-  TagChangeRegex = /TAG_CHANGE Entity=(.+) tag=(\w+) value=(.+)/;
+  TagChangeRegex = /\[Power\].*TAG_CHANGE Entity=(.+) tag=(\w+) value=(\w+)/;
 
-  CreationRegex = /FULL_ENTITY - (Creating|Updating).*(id|ID)=(\d+).*CardID=(\w*)/;
+  CreationRegex = /\[Power\].*FULL_ENTITY - (Creating|Updating).*(id|ID)=(\d+).*CardID=(\w*)/;
 
-  UpdatingEntityRegex = /(SHOW_ENTITY|CHANGE_ENTITY) - Updating Entity=(.+) CardID=(\w*)/;
+  UpdatingEntityRegex = /\[Power\].*(SHOW_ENTITY|CHANGE_ENTITY) - Updating Entity=(.+) CardID=(\w*)/;
 
-  CreationTagRegex = /.*tag=(\w+) value=(.+)/;
+  CreationTagRegex = /\[Power\].*.*tag=(\w+) value=(.+)/;
 
-  otherRegex = /(GameEntity|Player) EntityID=(\d+)/;
+  otherRegex = /\[Power\].*(GameEntity|Player) EntityID=(\d+)/;
 
   eventName = 'minion-update' as const;
 

@@ -142,26 +142,34 @@ export class LogWatcher extends HspEventsEmitter {
 		splitLines(buffer.toString()).forEach(line => {
 			// Run each line through our entire array of line parsers.
 			for (const lineParser of lineParsers) {
-				const parts = lineParser.parseLine(line);
-				if (!parts || parts.length <= 0) {
-					continue;
+				try {
+					const parts = lineParser.parseLine(line);
+					if (!parts || parts.length <= 0) {
+						continue;
+					}
+
+					updated = true;
+					lineParser.lineMatched(parts, gameState);
+
+					const logMessage = lineParser.formatLogMessage(parts, gameState);
+					if (logMessage) {
+						lineParser.logger(logMessage);
+					}
+
+					const shouldEmit = lineParser.shouldEmit(gameState);
+					if (shouldEmit) {
+						this.emit(lineParser.eventName);
+					}
+
+					// Stop after the first match we get.
+					break;
 				}
-
-				updated = true;
-				lineParser.lineMatched(parts, gameState);
-
-				const logMessage = lineParser.formatLogMessage(parts, gameState);
-				if (logMessage) {
-					lineParser.logger(logMessage);
+				catch (err) {
+					console.log("An error occured while parsing the logfile!");
+					console.log("  line", line);
+					console.log("  parser", lineParser.eventName);
+					console.log("  error", err.message);
 				}
-
-				const shouldEmit = lineParser.shouldEmit(gameState);
-				if (shouldEmit) {
-					this.emit(lineParser.eventName);
-				}
-
-				// Stop after the first match we get.
-				break;
 			}
 		});
 
