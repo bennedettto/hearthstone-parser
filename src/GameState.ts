@@ -19,10 +19,14 @@ export interface Quest {
 export interface Entity {
   id: number;
   cardId?: string;
-  [tag: string]: any;
+  CARDTYPE?: string;
+  CONTROLLER?: number;
+  ZONE?: string;
+  ZONE_POSITION?: number;
+  [tag: string]: (number | string);
 }
 
-export interface Player extends Entity {
+export interface Player {
   id: number;
   name: string;
   status: 'LOST' | 'WON' | 'TIED' | '';
@@ -81,9 +85,6 @@ export class GameState {
 
   addPlayer(player: Player): Player {
     this.players.push(player);
-    if (!player.discovery) {
-      player.discovery = {enabled: false, id: null};
-    }
     return player;
   }
 
@@ -93,11 +94,6 @@ export class GameState {
   }
 
   getEntityById(id: number): Entity | undefined {
-    const tmp = this.getPlayerById(id);
-    if (tmp) {
-      return tmp;
-    }
-
     return this.entities.find(entity => entity.id === id);
   }
 
@@ -127,11 +123,6 @@ export class GameState {
       entity[tag] = parseInt(value, 10);
     } else {
       entity[tag] = value;
-    }
-
-    if (tag === 'CARDTYPE' && value === 'PLAYER' && !this.getPlayerById(entity.id)) {
-      this.addPlayer(entity as Player);
-      this.removeEntityById(entity.id);
     }
   }
 
