@@ -61,6 +61,8 @@ export class GameState {
   entities: Entity[];
 
   turn: number;
+  
+  combatResult: number[];
 
   constructor() {
     this.reset();
@@ -81,6 +83,7 @@ export class GameState {
     this.turn = 0;
     this.players = [];
     this.gameOverCount = 0;
+    this.combatResult = [0, 0];
   }
 
   addPlayer(player: Player): Player {

@@ -7,6 +7,8 @@ import {ZoneChangeLineParser} from './zone-change';
 import {TagChangeLineParser} from './tag-change';
 import {GameState} from '../GameState';
 import {CombatStartsParser} from './combat-starts';
+import {CombatEndsParser} from './combat-ends';
+import {HeroAttackParser} from './hero-attack';
 import {MulliganStartParser} from './mulligan-start';
 import {ChoiceIdParser} from './choice-id';
 import {DiscoveryEndParser} from './discovery-end';
@@ -21,6 +23,8 @@ export const lineParsers = [
 	new TurnLineParser(),
 	new ZoneChangeLineParser(),
 	new CombatStartsParser(),
+	new CombatEndsParser(),
+	new HeroAttackParser(),
 	new TagChangeLineParser(),
 	new GameTagChangeLineParser(),
 	new MulliganStartParser(),
@@ -47,4 +51,6 @@ export interface Events {
 	'mulligan-result': void;
 	'minion-update': void;
 	'combat-starts': void;
+	'combat-ends': void;
+	'hero-attack': void;
 }
