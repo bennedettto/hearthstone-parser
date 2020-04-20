@@ -62,6 +62,8 @@ export class LogWatcher extends HspEventsEmitter {
 
 	private _updateDebouncer: (filePath: string, stats: fs.Stats) => void;
 
+	private _initializing = true;
+
 	constructor(options?: Partial<Options>) {
 		super();
 
@@ -157,7 +159,7 @@ export class LogWatcher extends HspEventsEmitter {
 					}
 
 					const shouldEmit = lineParser.shouldEmit(gameState);
-					if (shouldEmit) {
+					if (shouldEmit && !this._initializing) {
 						this.emit(lineParser.eventName);
 					}
 
@@ -173,7 +175,7 @@ export class LogWatcher extends HspEventsEmitter {
 			}
 		});
 
-		if (updated) {
+		if (updated && !this._initializing) {
 			this.emit('gamestate-changed', gameState);
 		}
 
@@ -195,5 +197,6 @@ export class LogWatcher extends HspEventsEmitter {
 		this._lastFileSize = newFileSize;
 
 		this.parseBuffer(buffer, this.gameState);
+		this._initializing = false;
 	}
 }
