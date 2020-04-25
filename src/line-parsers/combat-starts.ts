@@ -11,6 +11,7 @@ export class CombatStartsParser extends AbstractLineParser {
     gameState.turn = parseInt(parts[1], 10);
     if (gameState.turn >= 2 && (gameState.turn % 2 === 1)) {
 	    gameState.combatResult = [0, 0];
+	    gameState.inCombat = true;
 	  }
   }
 

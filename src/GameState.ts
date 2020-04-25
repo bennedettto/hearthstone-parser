@@ -23,6 +23,9 @@ export interface Entity {
   CONTROLLER?: number;
   ZONE?: string;
   ZONE_POSITION?: number;
+  HEALTH?: number;
+  DAMAGE?: number;
+  PLAYER_TECH_LEVEL?: number;
   [tag: string]: (number | string);
 }
 
@@ -63,6 +66,8 @@ export class GameState {
   turn: number;
   
   combatResult: number[];
+  
+  inCombat: boolean;
 
   constructor() {
     this.reset();
@@ -84,6 +89,7 @@ export class GameState {
     this.players = [];
     this.gameOverCount = 0;
     this.combatResult = [0, 0];
+    this.inCombat = false;
   }
 
   addPlayer(player: Player): Player {
